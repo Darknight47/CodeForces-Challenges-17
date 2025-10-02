@@ -47,38 +47,11 @@ No
 cases = int(input())
 for _ in range(cases):
     a, b = map(int, input().split())
-    original = sorted([a, b])  
-    ok = False
-    # Try vertical cuts
-    for x in range(1, a):
-        r1 = [x, b]
-        r2 = [a - x, b]
-        # side-by-side
-        if r1[1] == r2[1]:
-            new_rect = sorted([r1[0] + r2[0], r1[1]])
-            if new_rect != original:
-                ok = True
-                break
-        # stacked
-        if r1[0] == r2[0]:
-            new_rect = sorted([r1[0], r1[1] + r2[1]])
-            if new_rect != original:
-                ok = True
-                break
-    if(not ok): # Horizontal cut
-        for y in range(1, b):
-            r1 = [a, y]
-            r2 = [a, b - y]
-            # side-by-side
-            if r1[1] == r2[1]:
-                new_rect = sorted([r1[0] + r2[0], r1[1]])
-                if new_rect != original:
-                    ok = True
-                    break
-            # stacked
-            if r1[0] == r2[0]:
-                new_rect = sorted([r1[0], r1[1] + r2[1]])
-                if new_rect != original:
-                    ok = True
-                    break
-    print("YES" if ok else "NO")
+    if a > b:
+        a, b = b, a  # normalize so a ≤ b
+    if a % 2 == 0:
+        print("Yes")
+    elif b % 2 == 0 and b != 2 * a:
+        print("Yes")
+    else:
+        print("No")
